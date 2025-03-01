@@ -1,4 +1,32 @@
-## 3DBadgeTest
+# 3DBadgeTest
 
-Creating a badge using 3D images. 
-A fun experiment to see what can be done. 
+This is a fun project that I am working on. I recently passed my CompTIA Security + certification, and I want to show my certification on my phone. I am going to do this by creating a 3D shape of my certification, in different shapes. 
+
+I think that I am going to try other ways to improve this as well. 
+
+## 3D Shapes:
+
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/24ff6c86-0166-44e8-8620-3c6905e71f85" alt="" width="200" height="450">
+  &nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/1d62b3d1-5d61-4d50-aba5-7fe857b9fe2d" alt="" width="200" height="450"> 
+  &nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/8ce9845b-db1c-44d0-8c3a-78b5b2f25efd" alt="" width="200" height="450">
+  &nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/9aebe6eb-b1be-4c13-8634-48bc9b9a243f" alt="" width="200" height="450">
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
