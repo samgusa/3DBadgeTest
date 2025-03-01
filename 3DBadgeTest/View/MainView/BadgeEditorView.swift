@@ -46,7 +46,7 @@ struct BadgeEditorView: View {
                                 Image(systemName: shapeIcon(for: shape))
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 50, height: 55)
                                     .padding()
                                     .background(Circle().fill(viewModel.selectedShape.type == shape ? Color.blue.opacity(0.3) : Color.clear))
 
