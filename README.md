@@ -57,7 +57,7 @@ However, I did not like how this gradient looked in a 3D cylinder shape. The gra
 func cylindricalGradientLayer(frame: CGRect, startColor: UIColor, endColor: UIColor) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor, startColor.cgColor]
-        gradientLayer.locations = [0.0, 0.5, 1.0] // Centralize the light part of the gradient
+        gradientLayer.locations = [0.0, 0.5, 1.0]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
         gradientLayer.frame = frame
