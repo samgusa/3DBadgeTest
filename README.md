@@ -34,6 +34,38 @@ SCNVector3(0, 1, 0)
 Vertices connect to form a edges(lines) and faces(flat surfaces). A face is a flat surface made up of connected vertices. With these put together, we can create a 3D shape. 
 
 
+## Gradient Sides: 
+
+Making the sides a gradient color was a task in and of itself. Because SceneKit and SwiftUI use different rendering systems, Scenekit doesn't natively understand SwiftUI's Color or gradient. Scenekit is built using UIKit, so there needs to be some confuguring to make it usable in SwiftUI views. In this case it is UIViewRepresentable. 
+
+This is an old equation that I have used before to create a gradient in UIKit, and it worked here as well. 
+
+```swift
+func gradientLayer(with colors: [UIColor], startPoint: CGPoint = .zero, endPoint: CGPoint = CGPoint(x: 0, y: 1), frame: CGRect) -> CAGradientLayer {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = colors.map { $0.cgColor }
+        gradientLayer.startPoint = startPoint
+        gradientLayer.endPoint = endPoint
+        gradientLayer.frame = frame
+        return gradientLayer
+    }
+```
+
+However, I did not like how this gradient looked in a 3D cylinder shape. The gradient is vertical, so it will go from top to bottom. This doesn't work well for something that looks like it is in a coin shape. I needed to figure somethign out, and that is where location came to play. I was able to use it to change the direction of the gradient to horizontally. 
+
+```swift
+func cylindricalGradientLayer(frame: CGRect, startColor: UIColor, endColor: UIColor) -> CAGradientLayer {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor, startColor.cgColor]
+        gradientLayer.locations = [0.0, 0.5, 1.0] // Centralize the light part of the gradient
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.frame = frame
+        return gradientLayer
+    }
+```
+
+
 
 ## Things I figured out: 
 
