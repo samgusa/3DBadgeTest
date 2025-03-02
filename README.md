@@ -16,6 +16,14 @@ I think that I am going to try other ways to improve this as well.
   <img src="https://github.com/user-attachments/assets/9aebe6eb-b1be-4c13-8634-48bc9b9a243f" alt="" width="200" height="450">
 </p>
 
+## Data about SceneKit and SCN: 
+
+SceneKit is the Xcode native framework that can be used to create 3D shapes. SceneKit has 9 base shapes that can be used. They are: SCNPlane, SCNBox, SCNSphere, SCNPyramid, SCNCone, SCNCylinder, SCNCapsule, SCNTube, and SCNTorus.
+
+Here is more data on that: https://developer.apple.com/documentation/scenekit/scngeometry
+
+While these are the built in shapes, there are ways to create your own custom 3D shape. 
+
 
 ## Things I figured out: 
 
