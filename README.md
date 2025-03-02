@@ -26,6 +26,12 @@ While these are the built in shapes, there are ways to create your own custom 3D
 
 Vertices are the corner points of a 3D shape. They define the structure of the shape by specifying where the edges and faces connect. As an example, a cube has 8 vertices, while a pyramid has 5 vertices. Each vertex is defined by its position in 3D space using (x, y, z) coordinates, and is represented with SCNVector3. 
 
+```swift
+SCNVector3(0, 1, 0)
+// this represents a point at x = 0, y = 1, and z = 0
+```
+
+Vertices connect to form a edges(lines) and faces(flat surfaces). A face is a flat surface made up of connected vertices. With these put together, we can create a 3D shape. 
 
 
 
