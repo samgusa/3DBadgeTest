@@ -22,7 +22,7 @@ SceneKit is the Xcode native framework that can be used to create 3D shapes. Sce
 
 Here is more data on that: https://developer.apple.com/documentation/scenekit/scngeometry
 
-While these are the built in shapes, there are ways to create your own custom 3D shape. 
+While these are the built in shapes, there are ways to create your own custom 3D shape. Using this link to a github page, I found a way to try and create my own 3D shapes, which in my case is the triangular prism and diamond prism. 
 
 
 ## Things I figured out: 
