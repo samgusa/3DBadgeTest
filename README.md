@@ -110,11 +110,29 @@ This code adjusts the RGB components of a UIColor.
 
 ## Things I figured out: 
 
-I realized that there I would need to create the same setup code many times, for each 3D shape that I wanted to create. This annoyed me, because in the future I would have to create the same code multiple times. I beleive that the best thing to do when programming is to reduce your work to the best of our abilities, hence I thought of making something that can be reusable. 
+I realized that there I would need to create the same setup code many times, for each 3D shape that I wanted to create. This annoyed me, because in the future I would have to write the same code over and over again. I like it when I create good reusable code, so I tried to figure out how to do that for a SCNScene. 
 
+I had to start to figure out the parts that I needed to write over and over again, that was not specific to an individual shape. The reusable parts where: 
 
+- Creating the scene
+- Allowing camera control
+- Setting the background color -> in my case, .clear. 
 
+```swift
+struct SCNViewRepresentable: UIViewRepresentable {
+    let scene: SCNScene
 
+    func makeUIView(context: Context) -> some UIView {
+        let sceneView = SCNView()
+        sceneView.scene = scene
+        sceneView.allowsCameraControl = true
+        sceneView.backgroundColor = .clear
+        return sceneView
+    }
+
+    func updateUIView(_ uiView: UIViewType, context: Context) { }
+}
+```
 
 
 
