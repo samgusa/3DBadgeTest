@@ -17,7 +17,9 @@ I think that I am going to try other ways to improve this as well.
 </p>
 
 
+## Things I figured out: 
 
+I realized that there I would need to create the same setup code many times, for each 3D shape that I wanted to create. This annoyed me, because in the future I would have to create the same code multiple times. I beleive that the best thing to do when programming is to reduce your work to the best of our abilities, hence I thought of making something that can be reusable. 
 
 
 
