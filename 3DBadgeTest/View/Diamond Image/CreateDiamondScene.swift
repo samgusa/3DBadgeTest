@@ -15,7 +15,6 @@ func createDiamondScene(imageName: String?, height: CGFloat, width: CGFloat, dep
     let extrusionSettings = SCNGeometry.ExtrusionSettings(depth: depth, chamferRadius: 0)
     let prismGeometry = SCNGeometry.diamondPrism(height: height, width: width, extrusionSettings: extrusionSettings)
 
-    // 3. Create Materials
     let frontMaterial = SCNMaterial()
     if let imageName = imageName, let image = UIImage(named: imageName) {
         frontMaterial.diffuse.contents = image
@@ -38,27 +37,23 @@ func createDiamondScene(imageName: String?, height: CGFloat, width: CGFloat, dep
         sideMaterials[i].isDoubleSided = false
     }
 
-    // Apply materials to faces
     prismGeometry.materials = [
-        frontMaterial, // Front face
-        frontMaterial, // Back face
-        sideMaterials[0], // Right side
-        sideMaterials[1], // Bottom side
-        sideMaterials[2], // Left side
-        sideMaterials[3]  // Top side
+        frontMaterial,
+        frontMaterial,
+        sideMaterials[0],
+        sideMaterials[1],
+        sideMaterials[2],
+        sideMaterials[3]
     ]
 
-    // 5. Create Node and Add to Scene
     let prismNode = SCNNode(geometry: prismGeometry)
     scene.rootNode.addChildNode(prismNode)
 
-    // 6. Camera Setup
     let cameraNode = SCNNode()
     cameraNode.camera = SCNCamera()
     cameraNode.position = SCNVector3(0, 0, 5)
     scene.rootNode.addChildNode(cameraNode)
 
-    // 7. Light Setup
     let lightNode = SCNNode()
     lightNode.light = SCNLight()
     lightNode.light?.type = .omni
@@ -66,6 +61,8 @@ func createDiamondScene(imageName: String?, height: CGFloat, width: CGFloat, dep
     scene.rootNode.addChildNode(lightNode)
 
     return scene
+}
 
-
+#Preview {
+    ContentView()
 }

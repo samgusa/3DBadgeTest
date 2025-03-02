@@ -16,7 +16,6 @@ struct BadgeEditorView: View {
                 .font(.title2)
                 .padding(.top)
 
-            // 3D Preview (Updates based on selection)
             ZStack {
                 if viewModel.selectedShape.type == .cylinder {
                     CylinderImageView(imageName: viewModel.selectedShape.imageName)
@@ -34,7 +33,6 @@ struct BadgeEditorView: View {
             }
             .background(Color.gray.gradient.opacity(0.8))
 
-            // Shape Selection
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     Spacer()
@@ -63,7 +61,6 @@ struct BadgeEditorView: View {
         .padding()
     }
 
-    // SF Symbols for shapes (Replace with real images later)
     func shapeIcon(for shape: ShapeType) -> String {
         switch shape {
         case .cylinder: return "circle"

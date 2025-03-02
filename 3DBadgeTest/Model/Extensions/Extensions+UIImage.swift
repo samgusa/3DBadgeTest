@@ -17,7 +17,6 @@ extension UIImage {
         context.translateBy(x: size.width, y: 0)
         context.scaleBy(x: -1, y: 1)
 
-        // Draw the image in the context
         draw(at: CGPoint.zero)
 
         let flippedImage = UIGraphicsGetImageFromCurrentImageContext()

@@ -10,22 +10,20 @@ import SceneKit
 func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, sideColor: UIColor, sideImages: [String]) -> SCNScene {
     let scene = SCNScene()
 
-    // Cube geometry
     let cube = SCNBox(width: size, height: size, length: sideLength, chamferRadius: 0)
 
-    // Materials for the cube
     let frontMaterial = SCNMaterial()
-    frontMaterial.diffuse.contents = UIImage(named: imageName) // Display the image on the front face
+    frontMaterial.diffuse.contents = UIImage(named: imageName)
     frontMaterial.lightingModel = .constant
 
     let sideMaterials = (0..<4).map { _ in SCNMaterial() }
 
-    let startColor = sideColor // Customize this to match your sideColor
-    let endColor = sideColor.darker() // Customize this to match your desired gradient end color
-    let frame = CGRect(x: 0, y: 0, width: 150, height: size * 150) // Adjust height to fit your cylinder
+    let startColor = sideColor
+    let endColor = sideColor.darker()
+    let frame = CGRect(x: 0, y: 0, width: 150, height: size * 150)
 
     for i in 0..<4 {
-        if i < sideImages.count && !sideImages[i].isEmpty { // Check if imagename exists
+        if i < sideImages.count && !sideImages[i].isEmpty {
             sideMaterials[i].diffuse.contents = UIImage(named: sideImages[i])
         } else {
             sideMaterials[i].diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
@@ -35,24 +33,21 @@ func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, side
 
     cube.materials = [
         frontMaterial,
-        sideMaterials[0], // Right - top
+        sideMaterials[0],
         frontMaterial,
-        sideMaterials[1], // left
-        sideMaterials[2], // ??
+        sideMaterials[1],
+        sideMaterials[2],
         sideMaterials[3]
     ]
 
-    // Cube node
     let cubeNode = SCNNode(geometry: cube)
     scene.rootNode.addChildNode(cubeNode)
 
-    // Camera
     let cameraNode = SCNNode()
     cameraNode.camera = SCNCamera()
     cameraNode.position = SCNVector3(0, 0, 5)
     scene.rootNode.addChildNode(cameraNode)
 
-    // Light
     let lightNode = SCNNode()
     lightNode.light = SCNLight()
     lightNode.light?.type = .omni

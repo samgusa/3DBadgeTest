@@ -31,8 +31,7 @@ extension UIColor {
         )
     }
 
-    // Add value to component ensuring the result is
-    // between 0 and 1
+    // Add value to component ensuring the result is between 0 and 1
     private func add(_ value: CGFloat, toComponent: CGFloat) -> CGFloat {
         return max(0, min(1, toComponent + value))
     }
@@ -53,7 +52,6 @@ extension UIColor {
     }
 
     // Method to create a gradient layer from a UIColor for cylinder
-
     func cylindricalGradientLayer(frame: CGRect, startColor: UIColor, endColor: UIColor) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor, startColor.cgColor]

@@ -16,7 +16,6 @@ func createTriangleScene(imageName: String?, height: CGFloat, baseWidth: CGFloat
     let extrusionSettings = SCNGeometry.ExtrusionSettings(depth: baseLength, chamferRadius: 0)
     let prismGeometry = SCNGeometry.triangularPrism(height: height, baseWidth: baseWidth, baseLength: baseLength, extrusionSettings: extrusionSettings)
 
-    // 3. Create Materials
     let frontMaterial = SCNMaterial()
     if let imageName = imageName, let image = UIImage(named: imageName) {
         frontMaterial.diffuse.contents = image
@@ -39,26 +38,22 @@ func createTriangleScene(imageName: String?, height: CGFloat, baseWidth: CGFloat
         sideMaterials[i].isDoubleSided = false
     }
 
-    // Apply materials to faces (Corrected)
     prismGeometry.materials = [
-        frontMaterial, // Front face
-        frontMaterial, // Back face
-        sideMaterials[0], // Left side
+        frontMaterial,
+        frontMaterial,
+        sideMaterials[0],
         sideMaterials[1],
         sideMaterials[2]
     ]
 
-    // 5. Create Node and Add to Scene
     let prismNode = SCNNode(geometry: prismGeometry)
     scene.rootNode.addChildNode(prismNode)
 
-    // 6. Camera Setup (same as before)
     let cameraNode = SCNNode()
     cameraNode.camera = SCNCamera()
     cameraNode.position = SCNVector3(0, 0, 5)
     scene.rootNode.addChildNode(cameraNode)
 
-    // 7. Light Setup (same as before)
     let lightNode = SCNNode()
     lightNode.light = SCNLight()
     lightNode.light?.type = .omni

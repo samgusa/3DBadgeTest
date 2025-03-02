@@ -18,20 +18,17 @@ extension SCNGeometry {
     struct ExtrusionSettings {
         var depth: CGFloat
         var chamferRadius: CGFloat
-        // Add other properties as needed (e.g., bevel profile)
     }
 
     static func triangularPrism(height: CGFloat, baseWidth: CGFloat, baseLength: CGFloat, extrusionSettings: ExtrusionSettings) -> SCNGeometry {
         let halfBaseWidth = baseWidth / 2
 
-        // 1. Create 2D triangle shape
         let trianglePath = UIBezierPath()
         trianglePath.move(to: CGPoint(x: 0, y: height / 2))
         trianglePath.addLine(to: CGPoint(x: -halfBaseWidth, y: -height / 2))
         trianglePath.addLine(to: CGPoint(x: halfBaseWidth, y: -height / 2))
         trianglePath.close()
 
-        // 2. Extrude the 2D triangle to create the 3D prism
         let prismGeometry = SCNShape(path: trianglePath, extrusionDepth: CGFloat(baseLength))
 
         return prismGeometry
@@ -49,7 +46,6 @@ extension SCNGeometry {
         diamondPath.addLine(to: CGPoint(x: -halfWidth, y: 0)) // Left point
         diamondPath.close()
 
-        // 2. Extrude the 2D diamond to create the 3D prism
         let prismGeometry = SCNShape(path: diamondPath, extrusionDepth: extrusionSettings.depth)
 
         return prismGeometry
