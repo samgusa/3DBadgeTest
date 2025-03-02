@@ -194,6 +194,8 @@ This function is where the individual 3D shape is created, and where I configure
 
 Because it is a cube shape, I decided that I wanted to let the user to choose an image for the sides, which is why I created the sideMaterials in the function. In the first draft, I used an if-else statement for each side. This looked horrible, so I wanted to make it more clean looking as well as take up fewer lines of code. I found a For loop to be the best solution. 
 
+What I was trying to do was that if an image was not selected for that side, it should be the side color that is the gradient I created before. That is why I am checking if the sideMaterial is empty or not. 
+
 
 
 
