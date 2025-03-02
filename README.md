@@ -112,7 +112,7 @@ This code adjusts the RGB components of a UIColor.
 
 I realized that there I would need to create the same setup code many times, for each 3D shape that I wanted to create. This annoyed me, because in the future I would have to write the same code over and over again. I like it when I create good reusable code, so I tried to figure out how to do that for a SCNScene. 
 
-I had to start to figure out the parts that I needed to write over and over again, that was not specific to an individual shape. The reusable parts where: 
+I had to start to figure out the parts that I can reuse, that was not specific to an individual shape. The reusable parts where: 
 
 - Creating the scene
 - Allowing camera control
@@ -134,6 +134,61 @@ struct SCNViewRepresentable: UIViewRepresentable {
 }
 ```
 
+All that is left is creating a function that returns a SCNScene for each shape. These functions have parameters for each component that I would want for each shape, each sharing an image for the face, and a side color. 
+
+This is the function I used for the Cube shape: 
+
+```swift
+func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, sideColor: UIColor, sideImages: [String]) -> SCNScene {
+    let scene = SCNScene()
+
+    let cube = SCNBox(width: size, height: size, length: sideLength, chamferRadius: 0)
+
+    let frontMaterial = SCNMaterial()
+    frontMaterial.diffuse.contents = UIImage(named: imageName)
+    frontMaterial.lightingModel = .constant
+
+    let sideMaterials = (0..<4).map { _ in SCNMaterial() }
+
+    let startColor = sideColor
+    let endColor = sideColor.darker()
+    let frame = CGRect(x: 0, y: 0, width: 150, height: size * 150)
+
+    for i in 0..<4 {
+        if i < sideImages.count && !sideImages[i].isEmpty {
+            sideMaterials[i].diffuse.contents = UIImage(named: sideImages[i])
+        } else {
+            sideMaterials[i].diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
+        }
+        sideMaterials[i].lightingModel = .constant
+    }
+
+    cube.materials = [
+        frontMaterial,
+        sideMaterials[0],
+        frontMaterial,
+        sideMaterials[1],
+        sideMaterials[2],
+        sideMaterials[3]
+    ]
+
+    let cubeNode = SCNNode(geometry: cube)
+    scene.rootNode.addChildNode(cubeNode)
+
+    let cameraNode = SCNNode()
+    cameraNode.camera = SCNCamera()
+    cameraNode.position = SCNVector3(0, 0, 5)
+    scene.rootNode.addChildNode(cameraNode)
+
+    let lightNode = SCNNode()
+    lightNode.light = SCNLight()
+    lightNode.light?.type = .omni
+    lightNode.position = SCNVector3(0, 5, 5)
+    scene.rootNode.addChildNode(lightNode)
+
+    return scene
+}
+```
 
 
 
