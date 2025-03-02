@@ -200,5 +200,13 @@ Because it is a cube shape, I decided that I wanted to let the user to choose an
 What I was trying to do was that if an image was not selected for that side, it should be the side color that is the gradient I created before. That is why I am checking if the sideMaterial is empty or not. 
 
 
+## Future Thoughts:
 
+Here are some things that I am thinking of adding to this, that may make it a little more customizable. Here are some of my thoughts. 
+
+- Slider to increase size of sides.
+- Color Picker, to choose different color for the sides.
+- Let user choose an image from Photos.
+- Have an editing mode, where all of these changes can be made
+- Animate the Picker
 
