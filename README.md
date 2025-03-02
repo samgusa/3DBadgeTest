@@ -65,6 +65,47 @@ func cylindricalGradientLayer(frame: CGRect, startColor: UIColor, endColor: UICo
     }
 ```
 
+### Gradient Color:
+
+For someone who is color challenged such as myself, it took me a while to figure out how to find the right colors to make a good gradient. I found out that the best colors are different shades of the same base color, so like blue and slightly darker blue. I feel that makes the best equivalent to SwiftUI's native Color gradient.
+
+Here comes the issue, how do I get the different shades of the color. It is different because there is no native way to change the shade of a color. [Here](https://www.advancedswift.com/lighter-and-darker-uicolor-swift/) is where I found the solution. It creates an extension where I can darken a UIColor and, what is also provided here, lighten a color. 
+
+```swift
+extension UIColor {
+    private func makeColor(componentDelta: CGFloat) -> UIColor {
+        lazy var red: CGFloat = 0
+        lazy var blue: CGFloat = 0
+        lazy var green: CGFloat = 0
+        lazy var alpha: CGFloat = 0
+
+        getRed(
+            &red,
+            green: &green,
+            blue: &blue,
+            alpha: &alpha
+        )
+
+        return UIColor(
+            red: add(componentDelta, toComponent: red),
+            green: add(componentDelta, toComponent: green),
+            blue: add(componentDelta, toComponent: blue),
+            alpha: alpha
+        )
+    }
+
+    private func add(_ value: CGFloat, toComponent: CGFloat) -> CGFloat {
+        return max(0, min(1, toComponent + value))
+    }
+
+    func darker(componentDelta: CGFloat = 0.1) -> UIColor {
+        return makeColor(componentDelta: -1 * componentDelta)
+    }
+}
+
+```
+
+This code adjusts the RGB components of a UIColor. 
 
 
 ## Things I figured out: 
