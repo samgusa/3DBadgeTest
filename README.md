@@ -7,7 +7,7 @@ I think that I am going to try other ways to improve this as well.
 ## 3D Shapes:
 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/24ff6c86-0166-44e8-8620-3c6905e71f85" alt="" width="200" height="450">
+  <img src="https://github.com/user-attachments/assets/1a97f234-fb8c-45b6-bc1e-7e21fa675d43" alt="" width="200" height="450">
   &nbsp;&nbsp;&nbsp;
   <img src="https://github.com/user-attachments/assets/1d62b3d1-5d61-4d50-aba5-7fe857b9fe2d" alt="" width="200" height="450"> 
   &nbsp;&nbsp;&nbsp;
@@ -15,6 +15,9 @@ I think that I am going to try other ways to improve this as well.
   &nbsp;&nbsp;&nbsp;
   <img src="https://github.com/user-attachments/assets/9aebe6eb-b1be-4c13-8634-48bc9b9a243f" alt="" width="200" height="450">
 </p>
+
+
+
 
 ## Data about SceneKit and SCN: 
 
