@@ -190,8 +190,9 @@ func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, side
 }
 ```
 
+This function is where the individual 3D shape is created, and where I configured where the image will appear on the face, as well as any color I want the sides to have. 
 
-
+Because it is a cube shape, I decided that I wanted to let the user to choose an image for the sides, which is why I created the sideMaterials in the function. In the first draft, I used an if-else statement for each side. This looked horrible, so I wanted to make it more clean looking as well as take up fewer lines of code. I found a For loop to be the best solution. 
 
 
 
