@@ -22,7 +22,11 @@ SceneKit is the Xcode native framework that can be used to create 3D shapes. Sce
 
 Here is more data on that: https://developer.apple.com/documentation/scenekit/scngeometry
 
-While these are the built in shapes, there are ways to create your own custom 3D shape. Using this link to a github page, I found a way to try and create my own 3D shapes, which in my case is the triangular prism and diamond prism. 
+While these are the built in shapes, there are ways to create your own custom 3D shape. Using this [link](https://github.com/aheze/CustomSCNGeometry) to a github page, I found a way to try and create my own 3D shapes, which in my case is the triangular prism and diamond prism. Reading it, I found that the secret to creating a 3D shape is the vertices.
+
+Vertices are the corner points of a 3D shape. They define the structure of the shape by specifying where the edges and faces connect. As an example, a cube has 8 vertices, while a pyramid has 5 vertices. Each vertex is defined by its position in 3D space using (x, y, z) coordinates, and is represented with SCNVector3. 
+
+
 
 
 ## Things I figured out: 
