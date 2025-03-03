@@ -47,9 +47,11 @@ What this means simply is:
 
 To create this shape: 
 
-<img width="60" height="100" alt="Shape01" src="https://github.com/user-attachments/assets/6eb4bf8f-16ae-4621-a38d-a595130c3588" />
+<img width="60" height="100"  alt="Shape01" src="https://github.com/user-attachments/assets/aeb68ff3-3441-45a7-9783-6a70ad816d27" />
 
-Editing any of these values in the CGPoint changes the shape. For example, changing the second(2nd) .addLine to path.addLine(to: CGPoint(x: 300, y: 300)) to path.addLine(to: CGPoint(x: **200**, y: 300))
+Editing any of these values in the CGPoint changes the shape. For example, changing the second(2nd) .addLine to path.addLine(to: CGPoint(x: 300, y: 300)) to path.addLine(to: CGPoint(x: **200**, y: 300)) Turns the triangle from an Equilateral triangle to a Right triangle: 
+
+<img width="60" height="100" alt="Shape02" src="https://github.com/user-attachments/assets/f2cbf6ed-87fd-41ae-b4d4-a387c9bfca26" />
 
 
 ## Gradient Sides: 
