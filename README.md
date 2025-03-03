@@ -25,16 +25,31 @@ SceneKit is the Xcode native framework that can be used to create 3D shapes. Sce
 
 Here is more data on that: https://developer.apple.com/documentation/scenekit/scngeometry
 
-While these are the built in shapes, there are ways to create your own custom 3D shape. Using this [link](https://github.com/aheze/CustomSCNGeometry) to a github page, I found a way to try and create my own 3D shapes, which in my case is the triangular prism and diamond prism. Reading it, I found that the secret to creating a 3D shape is the vertices.
+While these are the built in shapes, there are ways to create your own custom 3D shape. Using this [link](https://www.hackingwithswift.com/books/ios-swiftui/creating-custom-paths-with-swiftui) to a hackingwithswift page, I found a way to try and create my own shapes, which in my case is the triangular prism and diamond prism. Reading it, I found that the secret to creating a 3D shape is that you will need to draw it yourself.
 
-Vertices are the corner points of a 3D shape. They define the structure of the shape by specifying where the edges and faces connect. As an example, a cube has 8 vertices, while a pyramid has 5 vertices. Each vertex is defined by its position in 3D space using (x, y, z) coordinates, and is represented with SCNVector3. 
+You start of with a move, include an addLine, and remember (absolutely remember) to close it off. 
+
+For example, this is what a triangle would look like using Path:
 
 ```swift
-SCNVector3(0, 1, 0)
-// this represents a point at x = 0, y = 1, and z = 0
+Path { path in
+            path.move(to: CGPoint(x: 200, y: 100))
+            path.addLine(to: CGPoint(x: 100, y: 300))
+            path.addLine(to: CGPoint(x: 300, y: 300))
+            path.addLine(to: CGPoint(x: 200, y: 100))
+        }
 ```
+What this means simply is:
+1. Start at the point (200, 100).
+2. Draws a line to (100, 300).
+3. Draws a line to (300, 300).
+4. Draws a line back to (200, 100), closing the shape.
 
-Vertices connect to form a edges(lines) and faces(flat surfaces). A face is a flat surface made up of connected vertices. With these put together, we can create a 3D shape. 
+To create this shape: 
+
+<img width="60" height="100" alt="Shape01" src="https://github.com/user-attachments/assets/6eb4bf8f-16ae-4621-a38d-a595130c3588" />
+
+Editing any of these values in the CGPoint changes the shape. For example, changing the second(2nd) .addLine to path.addLine(to: CGPoint(x: 300, y: 300)) to path.addLine(to: CGPoint(x: **200**, y: 300))
 
 
 ## Gradient Sides: 
