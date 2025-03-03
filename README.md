@@ -25,19 +25,20 @@ SceneKit is the Xcode native framework that can be used to create 3D shapes. Sce
 
 Here is more data on that: https://developer.apple.com/documentation/scenekit/scngeometry
 
-While these are the built in shapes, there are ways to create your own custom 3D shape. Using this [link](https://www.hackingwithswift.com/books/ios-swiftui/creating-custom-paths-with-swiftui) to a hackingwithswift page, I found a way to try and create my own shapes, which in my case is the triangular prism and diamond prism. Reading it, I found that the secret to creating a 3D shape is that you will need to draw it yourself.
+While these are the built in shapes, there are ways to create your own custom 3D shape. Using this [link](https://www.hackingwithswift.com/books/ios-swiftui/creating-custom-paths-with-swiftui) to a hackingwithswift page, I found a way to try and create my own shapes, which in my case is the triangular prism and diamond prism. **The only issue is that this article is for SwiftUI, but it is simple to make it into UIKit which is the only way to create a 3D shape.** Reading it, I found that the secret to creating a 3D shape is that you will need to draw it yourself.
 
-You start of with a move, include an addLine, and remember (absolutely remember) to close it off. 
+You start of with a move, include an addLine, and remember (absolutely remember) to close it off. The UIBezierPath is a UIKit class used to create vector-based paths. This is used to begin the creation of a shape. 
 
 For example, this is what a triangle would look like using Path:
 
 ```swift
-Path { path in
-            path.move(to: CGPoint(x: 200, y: 100))
-            path.addLine(to: CGPoint(x: 100, y: 300))
-            path.addLine(to: CGPoint(x: 300, y: 300))
-            path.addLine(to: CGPoint(x: 200, y: 100))
-        }
+let trianglePath = UIBezierPath()
+trianglePath.move(to: CGPoint(x: 200, y: 100))
+trianglePath.addLine(to: CGPoint(x: 100, y: 300))
+trianglePath.addLine(to: CGPoint(x: 300, y: 300))
+trianglePath.addLine(to: CGPoint(x: 200, y: 100))
+trianglePath.close()
+
 ```
 What this means simply is:
 1. Start at the point (200, 100).
@@ -53,6 +54,14 @@ Editing any of these values in the CGPoint changes the shape. For example, chang
 
 <img width="60" height="100" alt="Shape02" src="https://github.com/user-attachments/assets/f2cbf6ed-87fd-41ae-b4d4-a387c9bfca26" />
 
+The only thing left to do is turn this 2D shape into a 3D shape. Thankfully there is a way to do it in UIKit, and it is the simple (but powerful) SCNShape. 
+SCNShape takes the path, which is the shape that we made, and the extrusionDepth, which is the side length to make it 3 Dimensional. 
+
+```swift
+let prismGeometry = SCNShape(path: trianglePath, extrusionDepth: CGFloat(baseLength))
+```
+
+Now you have a 3D shape. 
 
 ## Gradient Sides: 
 
@@ -126,6 +135,91 @@ extension UIColor {
 ```
 
 This code adjusts the RGB components of a UIColor. 
+
+Now you have a UIKit method to create a gradient. 
+
+## Image on Shape's Face
+
+Now that we have a 3D shape, we need to figure out how to get the image on the face. This may be slightly different for each shape, but it uses the same principle for each of them. 
+
+The term XCode uses to refer to the faces and sides of 3D shapes is Material. SCNMaterial is the method used to create the different faces and sides of a 3D shape. 
+This part is easy, as it is just creating an instance of SCNMaterial, then defining what is in it. Then we can make it an image. 
+
+diffuse.contents is what the face of the shape will be, and then setting it as double sided makes the image appear of both sides of the circle. 
+
+
+This is the code: 
+
+<img align="right" img width="110" height="200" alt="Shape03" src="https://github.com/user-attachments/assets/0868c991-e5ec-427a-ad09-9cf7cadc49af" />
+
+```swift
+let topFaceMaterial = SCNMaterial()
+if let image = UIImage(named: imageName)? {
+        topFaceMaterial.diffuse.contents = image
+        topFaceMaterial.isDoubleSided = true
+    }
+```
+
+There is one issue that I found with this, and that is that the image usually appears backwards and slightly tilted, and backwards. 
+
+I believe that it is just the way that XCode does this, so it is something that will need a little more work to fix. 
+
+We will need to flip the image horizontally, then rotate the image. These two functions do all that. 
+
+```swift
+extension UIImage {
+    func flippedHorizontally() -> UIImage? {
+        UIGraphicsBeginImageContext(size)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+
+        context.translateBy(x: size.width, y: 0)
+        context.scaleBy(x: -1, y: 1)
+
+        draw(at: CGPoint.zero)
+
+        let flippedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return flippedImage
+    }
+
+    func rotated(by degrees: CGFloat) -> UIImage? {
+        let radians = degrees * CGFloat.pi / -180
+        lazy var newSize = CGRect(origin: CGPoint.zero, size: size)
+            .applying(CGAffineTransform(rotationAngle: radians))
+            .integral.size
+        newSize.width = floor(newSize.width)
+        newSize.height = floor(newSize.height)
+
+        UIGraphicsBeginImageContext(newSize)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+
+        context.translateBy(x: newSize.width / 2, y: newSize.height / 2)
+        context.rotate(by: radians)
+        draw(in: CGRect(x: -size.width / 2, y: -size.height / 2, width: size.width, height: size.height))
+
+        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return rotatedImage
+    }
+}
+```
+
+We then can use them to fix the image. 
+
+<img align="right" width="110" height="200" alt="Shape03" src="https://github.com/user-attachments/assets/62f7503b-cb62-45ae-9cd2-1d1941a16e75" />
+
+```swift
+let topFaceMaterial = SCNMaterial()
+    if let image = UIImage(named: imageName)?
+        .flippedHorizontally()?
+        .rotated(by: -90) {
+        topFaceMaterial.diffuse.contents = image
+        topFaceMaterial.isDoubleSided = true
+    }
+```
+
 
 
 ## Things I figured out: 
