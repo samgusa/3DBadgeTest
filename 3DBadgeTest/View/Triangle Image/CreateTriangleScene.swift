@@ -25,25 +25,21 @@ func createTriangleScene(imageName: String?, height: CGFloat, baseWidth: CGFloat
         frontMaterial.diffuse.contents = UIColor.black
     }
 
-    let sideMaterials = (0..<3).map { _ in SCNMaterial() } // 3 sides
+    let sideMaterial = SCNMaterial()
 
     let startColor = sideColor
     let endColor = sideColor.darker()
 
     let frame = CGRect(x: 0, y: 0, width: 150, height: height * 150)
 
-    for i in 0..<3 {
-        sideMaterials[i].diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
-        sideMaterials[i].lightingModel = .constant
-        sideMaterials[i].isDoubleSided = false
-    }
+    sideMaterial.diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
+    sideMaterial.lightingModel = .constant
+    sideMaterial.isDoubleSided = false
 
     prismGeometry.materials = [
         frontMaterial,
         frontMaterial,
-        sideMaterials[0],
-        sideMaterials[1],
-        sideMaterials[2]
+        sideMaterial
     ]
 
     let prismNode = SCNNode(geometry: prismGeometry)
@@ -64,5 +60,5 @@ func createTriangleScene(imageName: String?, height: CGFloat, baseWidth: CGFloat
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .triangularPrism)
 }

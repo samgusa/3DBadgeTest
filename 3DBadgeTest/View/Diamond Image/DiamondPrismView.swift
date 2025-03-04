@@ -28,5 +28,5 @@ struct DiamondPrismImageView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .diamondPrism)
 }

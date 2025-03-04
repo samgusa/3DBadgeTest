@@ -24,26 +24,21 @@ func createDiamondScene(imageName: String?, height: CGFloat, width: CGFloat, dep
         frontMaterial.diffuse.contents = UIColor.black
     }
 
-    let sideMaterials = (0..<4).map { _ in SCNMaterial() } // 4 sides for a diamond prism
+    let sideMaterial = SCNMaterial()  // 4 sides for a diamond prism
 
     let startColor = sideColor
     let endColor = sideColor.darker()
 
     let frame = CGRect(x: 0, y: 0, width: 150, height: height * 150)
 
-    for i in 0..<4 {
-        sideMaterials[i].diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
-        sideMaterials[i].lightingModel = .constant
-        sideMaterials[i].isDoubleSided = false
-    }
+    sideMaterial.diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
+    sideMaterial.lightingModel = .constant
+    sideMaterial.isDoubleSided = false
 
     prismGeometry.materials = [
         frontMaterial,
         frontMaterial,
-        sideMaterials[0],
-        sideMaterials[1],
-        sideMaterials[2],
-        sideMaterials[3]
+        sideMaterial
     ]
 
     let prismNode = SCNNode(geometry: prismGeometry)
@@ -64,5 +59,5 @@ func createDiamondScene(imageName: String?, height: CGFloat, width: CGFloat, dep
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .diamondPrism)
 }

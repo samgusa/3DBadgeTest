@@ -44,5 +44,5 @@ func createCylinderScene(imageName: String, height: CGFloat, sideColor: UIColor)
 
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .cylinder)
 }

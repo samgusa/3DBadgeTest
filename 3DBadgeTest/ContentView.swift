@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    var shapeType: ShapeType
     var body: some View {
-        BadgeEditorView()
+        BadgeEditorView(shapeType: shapeType)
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .cylinder)
 }

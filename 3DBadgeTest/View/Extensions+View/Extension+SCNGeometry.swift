@@ -53,5 +53,5 @@ extension SCNGeometry {
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .cylinder)
 }

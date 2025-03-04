@@ -26,7 +26,7 @@ struct CylinderImageView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .cylinder)
 }
 
 

@@ -28,5 +28,5 @@ struct TriangularPrismImageView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .triangularPrism)
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct _DBadgeTestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(shapeType: .cylinder)
         }
     }
 }

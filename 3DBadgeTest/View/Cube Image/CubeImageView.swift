@@ -29,5 +29,5 @@ struct CubeImageView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(shapeType: .cube)
 }

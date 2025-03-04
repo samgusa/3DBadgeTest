@@ -10,8 +10,8 @@ import SwiftUI
 class BadgeViewModel: ObservableObject {
     @Published var selectedShape: BadgeShape
 
-    init() {
-        self.selectedShape = BadgeShape(type: .cylinder, size: 2.0, height: 0.3, imageName: "Icon")
+    init(initialShape: ShapeType) {
+        self.selectedShape = BadgeShape(type: initialShape, size: 2.0, height: 0.3, imageName: "Icon")
     }
 
     func updateShape(type: ShapeType) {
