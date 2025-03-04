@@ -220,7 +220,31 @@ let topFaceMaterial = SCNMaterial()
     }
 ```
 
+It is also important to make a side material, or else there won't be one, and will appear as if there is nothing there. 
+We can create the side material the same way as the face material, but this time we will give it a color. 
 
+```swift
+
+let sideMaterial = SCNMaterial()
+let color = UIColor.red
+
+sideMaterial.diffuse.contents = color
+
+```
+
+We can now place all of these into our shape. In this case I am using Cylinder which is a native Swift 3D shape, but you can use your own shape of type SCNGeometry. 
+
+```swift
+
+cylinder.materials = [sideMaterial, topFaceMaterial, topFaceMaterial]
+
+```
+
+The order is important, because that will determine where the image goes. For a cylinder, it is side material, then the front face, then the back face. 
+
+### Side Images
+
+Using a similar method to creating the face 
 
 ## Things I figured out: 
 
