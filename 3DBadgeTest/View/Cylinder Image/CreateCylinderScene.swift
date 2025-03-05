@@ -18,6 +18,8 @@ func createCylinderScene(imageName: String, height: CGFloat, sideColor: UIColor)
         .rotated(by: -90) {
         topFaceMaterial.diffuse.contents = image
         topFaceMaterial.isDoubleSided = true
+    } else {
+        topFaceMaterial.diffuse.contents = UIColor.gray //Fallback
     }
 
     let sideMaterial = SCNMaterial()

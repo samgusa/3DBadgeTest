@@ -6,6 +6,7 @@
 //
 
 import SceneKit
+import SwiftUI
 
 func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, sideColor: UIColor, sideImages: [String]) -> SCNScene {
     let scene = SCNScene()
@@ -16,19 +17,18 @@ func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, side
     frontMaterial.diffuse.contents = UIImage(named: imageName)
     frontMaterial.lightingModel = .constant
 
-    let sideMaterials = (0..<4).map { _ in SCNMaterial() }
-
-    let startColor = sideColor
-    let endColor = sideColor.darker()
-    let frame = CGRect(x: 0, y: 0, width: 150, height: size * 150)
-
-    for i in 0..<4 {
-        if i < sideImages.count && !sideImages[i].isEmpty {
-            sideMaterials[i].diffuse.contents = UIImage(named: sideImages[i])
+    let sideMaterials = (0..<4).map { index -> SCNMaterial in
+        let material = SCNMaterial()
+        material.lightingModel = .constant
+        if index < sideImages.count, !sideImages[index].isEmpty, let image = UIImage(named: sideImages[index]) {
+            material.diffuse.contents = image
         } else {
-            sideMaterials[i].diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
+            let startColor = sideColor
+            let endColor = sideColor.darker()
+            let frame = CGRect(x: 0, y: 0, width: 150, height: size * 150)
+            material.diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
         }
-        sideMaterials[i].lightingModel = .constant
+        return material
     }
 
     cube.materials = [
@@ -55,4 +55,9 @@ func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, side
     scene.rootNode.addChildNode(lightNode)
 
     return scene
+}
+
+
+#Preview {
+    ContentView(shapeType: .cube)
 }

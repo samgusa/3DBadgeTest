@@ -25,7 +25,6 @@ func createDiamondScene(imageName: String?, height: CGFloat, width: CGFloat, dep
     }
 
     let sideMaterial = SCNMaterial()  // 4 sides for a diamond prism
-
     let startColor = sideColor
     let endColor = sideColor.darker()
 
