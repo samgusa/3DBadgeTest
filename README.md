@@ -271,9 +271,56 @@ This is not the best way to make the side materials, It isn't that scalable, and
 
 I found a for loop to be the best way to scale this up, while making it easier to read, and maintain. If I want to add something to one or all of them, it is a simple call and implementation. 
 
+One thing to note, when I designed my shapes, I wanted to check to see if it was given an image, and if not, then it just has a colored side. This is important because if there is nothing on that side then it will show a cube with nothing on that side. 
+
+```swift
+
+let sideMaterials = (0..<4).map { _ in SCNMaterial() }
+
+ for i in 0..<4 {
+        if i < sideImages.count && !sideImages[i].isEmpty {
+            sideMaterials[i].diffuse.contents = UIImage(named: sideImages[i])
+        } else {
+            sideMaterials[i].diffuse.contents = startColor.gradientLayer(with: [startColor, endColor], frame: frame)
+        }
+        sideMaterials[i].lightingModel = .constant
+    }
+```
+
+This takes all the lines of code to create 4 side images, and condenses it, and makes it easier to read and see. 
+
+Now that we have set up the face and side materials, we just need to add it to the cube. Similar to the cylinder, we set a cube's materials to the materials we created. 
+
+```swift
+    let cube = SCNBox(width: size, height: size, length: sideLength, chamferRadius: 0)
+
+cube.materials = [
+        frontMaterial,
+        sideMaterials[0],
+        frontMaterial,
+        sideMaterials[1],
+        sideMaterials[2],
+        sideMaterials[3]
+    ]
+
+```
+
+Now, this is important, but the order of the materials in the cube material is important to get right, because that determines what side is which. So I found that this is the order: 
+
+```swift
+cube.materials = [
+    Front of cube,
+    Right side of cube,
+    Back of cube (behind the front),
+    Top of cube,
+    Bottom of cube
+]
+
+```
+
 ## Things I figured out: 
 
-I realized that there I would need to create the same setup code many times, for each 3D shape that I wanted to create. This annoyed me, because in the future I would have to write the same code over and over again. I like it when I create good reusable code, so I tried to figure out how to do that for a SCNScene. 
+I realized that in certain areas I would need to create the same setup code many times, for each 3D shape that I wanted to create. This annoyed me, because in the future I would have to write the same code over and over again. I like it when I create good reusable code, so I tried to figure out how to do that for a SCNScene. 
 
 I had to start to figure out the parts that I can reuse, that was not specific to an individual shape. The reusable parts where: 
 
@@ -354,11 +401,6 @@ func createCubeScene(imageName: String, size: CGFloat, sideLength: CGFloat, side
 ```
 
 This function is where the individual 3D shape is created, and where I configured where the image will appear on the face, as well as any color I want the sides to have. 
-
-Because it is a cube shape, I decided that I wanted to let the user to choose an image for the sides, which is why I created the sideMaterials in the function. In the first draft, I used an if-else statement for each side. This looked horrible, so I wanted to make it more clean looking as well as take up fewer lines of code. I found a For loop to be the best solution. 
-
-What I was trying to do was that if an image was not selected for that side, it should be the side color that is the gradient I created before. That is why I am checking if the sideMaterial is empty or not. 
-
 
 ## Future Thoughts:
 
