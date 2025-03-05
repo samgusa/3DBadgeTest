@@ -40,19 +40,23 @@ trianglePath.addLine(to: CGPoint(x: 200, y: 100))
 trianglePath.close()
 
 ```
+
+
+
 What this means simply is:
+
+<img align="right" width="60" height="100"  alt="Shape01" src="https://github.com/user-attachments/assets/aeb68ff3-3441-45a7-9783-6a70ad816d27" />
+
 1. Start at the point (200, 100).
 2. Draws a line to (100, 300).
 3. Draws a line to (300, 300).
 4. Draws a line back to (200, 100), closing the shape.
 
-To create this shape: 
-
-<img width="60" height="100"  alt="Shape01" src="https://github.com/user-attachments/assets/aeb68ff3-3441-45a7-9783-6a70ad816d27" />
+<img align="right" width="60" height="100" alt="Shape02" src="https://github.com/user-attachments/assets/f2cbf6ed-87fd-41ae-b4d4-a387c9bfca26" />
 
 Editing any of these values in the CGPoint changes the shape. For example, changing the second(2nd) .addLine to path.addLine(to: CGPoint(x: 300, y: 300)) to path.addLine(to: CGPoint(x: **200**, y: 300)) Turns the triangle from an Equilateral triangle to a Right triangle: 
 
-<img width="60" height="100" alt="Shape02" src="https://github.com/user-attachments/assets/f2cbf6ed-87fd-41ae-b4d4-a387c9bfca26" />
+
 
 The only thing left to do is turn this 2D shape into a 3D shape. Thankfully there is a way to do it in UIKit, and it is the simple (but powerful) SCNShape. 
 SCNShape takes the path, which is the shape that we made, and the extrusionDepth, which is the side length to make it 3 Dimensional. 
@@ -244,7 +248,28 @@ The order is important, because that will determine where the image goes. For a 
 
 ### Side Images
 
-Using a similar method to creating the face 
+Using a similar method to creating the face material, we can add an image to the sides of a shape. While it is possible for other shapes, I found it looks better in a cube, above the others. Because their are 6 faces on a Cube: front, back, left, right, top, bottom, we will need to create a sideMaterial for each side, outside of the main face. 
+
+```swift
+
+let sideMaterial1 = SCNMaterial()
+sideMaterial1.diffuse.contents = UIImage(named: sideImage1)
+sideMaterial.lightingModel = .constant
+
+cube.materials = [
+        frontMaterial,
+        sideMaterial1,
+        frontMaterial,
+        sideMaterial2,
+        sideMaterial3,
+        sideMaterial4
+    ]
+
+```
+
+This is not the best way to make the side materials, It isn't that scalable, and we would have to do the same for each side material we have. 
+
+I found a for loop to be the best way to scale this up, while making it easier to read, and maintain. If I want to add something to one or all of them, it is a simple call and implementation. 
 
 ## Things I figured out: 
 
